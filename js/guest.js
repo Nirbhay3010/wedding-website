@@ -200,6 +200,7 @@ export const guest = (() => {
         theme.init();
         session.init();
         offline.init();
+        progress.init();
 
         normalize();
         countDownDate();
@@ -223,34 +224,8 @@ export const guest = (() => {
             info.remove();
         }
 
-        const token = document.body.getAttribute('data-key');
-        if (!token || token.length === 0) {
-            progress.init();
-            document.getElementById('comment')?.remove();
-            document.querySelector('a.nav-link[href="#comment"]')?.closest('li.nav-item')?.remove();
-        }
+        progress.init();
 
-        if (token.length > 0) {
-            // add 2 progress for config and comment.
-            progress.add();
-            progress.add();
-            progress.init();
-
-            session.setToken(token);
-            session.guest().then((res) => {
-                if (res.code !== 200) {
-                    progress.invalid('config');
-                    return;
-                }
-
-                progress.complete('config');
-
-                comment.init();
-                comment.comment()
-                    .then(() => progress.complete('comment'))
-                    .catch(() => progress.invalid('comment'));
-            }).catch(() => progress.invalid('config'));
-        }
     };
 
     return {
