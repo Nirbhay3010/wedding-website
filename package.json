@@ -10,6 +10,6 @@
         "lint:js": "eslint js",
         "lint:css": "stylelint css",
         "lint:html": "htmlhint **/*.html",
-        "dev:start": "http-server -p 8080"
+        "dev:start": "http-server -p 8081"
     }
 }
